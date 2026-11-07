@@ -1,0 +1,7 @@
+# 🧠 Autonomous Memory Vault
+
+> **Governing Authority:** Governing Officer Tarwater  
+> **Control Plane:** Governed under `autonomous-governance-core`
+
+## Overview
+`autonomous-memory-vault` provides persistent cross-repository state storage and predictive trend analysis. It tracks historical telemetry snapshots over time, allowing the autonomous ecosystem to detect gradual code degradation before constitutional thresholds are breached.
