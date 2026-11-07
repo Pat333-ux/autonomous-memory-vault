@@ -1,0 +1,40 @@
+name: Autonomous Memory Vault Sync & Trend Analysis
+
+on:
+  schedule:
+    - cron: '30 2 * * *' # Run daily at 2:30 AM UTC (right after the agent swarm)
+  workflow_dispatch:
+    inputs:
+      target:
+        description: 'Target Repository to Analyze'
+        required: true
+        default: 'Pat333-ux/autonomous-governance-core'
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  sync-memory:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Vault Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests pyyaml
+
+      - name: Run Trend Analysis
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
+        run: |
+          python trend_analyzer.py "${{ github.event.inputs.target || 'Pat333-ux/autonomous-governance-core' }}"
